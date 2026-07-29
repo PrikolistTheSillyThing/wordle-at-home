@@ -37,22 +37,40 @@ public class Main {
             lettersToGuess.add(c);
         }
 
-        for (int i = 0; i < lettersToGuess.size(); i++) {
-            for (int j = 0; j < lettersToGuess.size(); j++) {
-                for (char c : lettersToGuess) {
-                    System.out.print(ANSI_WHITE_BACKGROUND + ANSI_WHITE + c + ANSI_RESET + " ");
-                }
-                System.out.println("\n");
+        for (int j = 0; j < lettersToGuess.size(); j++) {
+            for (char c : lettersToGuess) {
+                System.out.print(ANSI_WHITE_BACKGROUND + ANSI_WHITE + c + ANSI_RESET + " ");
             }
+            System.out.println("\n");
+        }
 
+        for (int i = 0; i < lettersToGuess.size(); i++) {
             System.out.println("Enter a word that consists of 5 letters");
             String userWord = sc.nextLine().trim().toUpperCase();
+            System.out.println();
             char[] userLetters = userWord.toCharArray();
 
             int index = 0;
 
             for (char c : userLetters) {
-                // TODO: Potentially move this out of the for loop and print the colored letters
+                String color = getColor(lettersToGuess, c, index) == Colors.GREEN ?
+                        ANSI_GREEN : (getColor(lettersToGuess, c, index) == Colors.YELLOW ?
+                            ANSI_YELLOW : ANSI_BLACK
+                        );
+                System.out.print(ANSI_WHITE_BACKGROUND + color + c + ANSI_RESET + " ");
+
+            }
+            System.out.println("\n");
+
+            if (index < lettersToGuess.size()) {
+                index++;
+            }
+
+            for (int j = 0; j < lettersToGuess.size() - index; j++) {
+                for (char c : lettersToGuess) {
+                    System.out.print(ANSI_WHITE_BACKGROUND + ANSI_WHITE + c + ANSI_RESET + " ");
+                }
+                System.out.println("\n");
             }
         }
 
